@@ -1,0 +1,17 @@
+{
+  "template": "https://github.com/ecmwf-projects/cookiecutter-conda-package",
+  "commit": "7b269b0fab8febc142f48c822b322028affbff59",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "project_name": "c3s-eqc-toolbox-template",
+      "project_slug": "c3s_eqc_toolbox_template",
+      "project_short_description": "C3S evaluation and quality control toolbox template",
+      "copyright_holder": "European Union",
+      "copyright_year": "2022",
+      "mypy_strict": "True",
+      "_template": "https://github.com/ecmwf-projects/cookiecutter-conda-package"
+    }
+  },
+  "directory": null
+}
