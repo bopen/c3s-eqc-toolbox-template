@@ -1,6 +1,6 @@
 # c3s-eqc-toolbox-template
 
-C3S evaluation and quality control toolbox template
+CADS Toolbox template application
 
 ## Quick Start
 

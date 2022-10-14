@@ -1,6 +1,6 @@
 # Welcome to c3s_eqc_toolbox_template's documentation!
 
-C3S evaluation and quality control toolbox template.
+CADS Toolbox template application.
 
 ```{toctree}
 :caption: 'Contents:'

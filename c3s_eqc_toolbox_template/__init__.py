@@ -1,4 +1,4 @@
-"""C3S evaluation and quality control toolbox template."""
+"""CADS Toolbox template application."""
 
 # Copyright 2022, European Union.
 #

@@ -6,7 +6,7 @@
     "cookiecutter": {
       "project_name": "c3s-eqc-toolbox-template",
       "project_slug": "c3s_eqc_toolbox_template",
-      "project_short_description": "C3S evaluation and quality control toolbox template",
+      "project_short_description": "CADS Toolbox template application",
       "copyright_holder": "European Union",
       "copyright_year": "2022",
       "mypy_strict": "True",
