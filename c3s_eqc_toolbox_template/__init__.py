@@ -22,6 +22,7 @@ except ImportError:  # pragma: no cover
     # Local copy or not installed with setuptools
     __version__ = "999"
 
-from .download import chunked_download
+from . import statistics
+from .download import download_and_transform
 
-__all__ = ["__version__", "download.py"]
+__all__ = ["__version__", "download_and_transform", "statistics"]

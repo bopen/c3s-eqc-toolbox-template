@@ -29,3 +29,6 @@ dependencies:
   - cgul
   - emohawk
   - cacholote
+  - plotly
+  - kaleido
+  - jupyter

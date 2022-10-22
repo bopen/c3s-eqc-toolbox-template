@@ -1,14 +1,15 @@
 import calendar
 import itertools
-from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Union
+from typing import Any, Callable, Dict, Iterable, List, Optional, Tuple, Union
 
 import cacholote
 import cads_toolbox
 import xarray as xr
 
 
-def ensure_list(obj: Any) -> list:
-    if isinstance(obj, Iterable) and not isinstance(obj, str):
+def ensure_list(obj: Any) -> List[Any]:
+
+    if isinstance(obj, (list, tuple)):
         return list(obj)
     else:
         return [obj]
@@ -31,55 +32,26 @@ def check_non_empty(request: Dict[str, Any]) -> bool:
 
 
 def update_request(
-    request: Dict[str, Any], parameters: List[str], values: List[Any]
+    request: Dict[str, Any],
+    parameters: Iterable[str],
+    values: Union[List[Any], Tuple[Any]],
 ) -> Dict[str, Any]:
     for parameter, value in zip(parameters, values):
         request[parameter] = value
     return request
 
 
-def split_request_nested(
-    request: Dict[str, Any],
-    parameters: Optional[List[str]] = [],
-):
-    parameters = parameters.copy()
-    if len(parameters) == 0:
-        return request.copy()
-    else:
-        requests = []
-        parameter = parameters.pop(0)
-        if isinstance(parameter, Sequence) and not isinstance(parameter, str):
-            list_values = list(itertools.product(*[request[p] for p in parameter]))
-            for values in list_values:
-                out_request = request.copy()
-                out_request = update_request(out_request, parameter, values)
-                if not check_non_empty(out_request):
-                    continue
-                out_request = split_request_nested(out_request, parameters)
-                requests.append(out_request)
-        else:
-            for value in request[parameter]:
-                out_request = request.copy()
-                out_request[parameter] = value
-                if not check_non_empty(out_request):
-                    continue
-                out_request = split_request_nested(out_request, parameters)
-                requests.append(out_request)
-
-        return requests
-
-
 def build_chunks(
-    values: Union[List[Union[int, str]], Union[int, str]],
+    values: Union[List[Any], Any],
     chunks_size: int,
-) -> List[Union[int, str]]:
+) -> Union[List[List[Any]], List[Any]]:
 
     values = ensure_list(values)
     values.copy()
     if chunks_size == 1:
         return values
     else:
-        chunks_list = []
+        chunks_list: List[List[Any]] = []
         for k, value in enumerate(values):
             if k % chunks_size == 0:
                 chunks_list.append([])
@@ -89,12 +61,26 @@ def build_chunks(
 
 def split_request(
     request: Dict[str, Any],
-    chunks: Optional[Dict[str, int]] = [],
-):
-    requests = []
+    chunks: Dict[str, int] = {},
+) -> List[Dict[str, Any]]:
+    """
+    Split the input request in smaller request defined by the chunks.
+
+    Parameters
+    ----------
+    request: dict
+        Parameters of the request
+    chunks: dict
+        dictionary {parameter_name: chunk_size}
+
+    Returns
+    -------
+    xr.Dataset: list of requests
+    """
     if len(chunks) == 0:
-        return [request.copy()]
+        requests = [request.copy()]
     else:
+        requests = []
         list_values = list(
             itertools.product(
                 *[
@@ -111,16 +97,42 @@ def split_request(
                 continue
 
             requests.append(out_request)
-        return requests
+    return requests
 
 
-def chunked_download(
+@cacholote.cacheable
+def download_and_transform_chunk(
     collection_id: str,
     request: Dict[str, Any],
-    target: str = None,
-    chunks: Optional[Dict[str, int]] = [],
-    f: Optional[Callable] = None,
-):
+    f: Optional[Callable[[xr.Dataset], xr.Dataset]] = None,
+    open_with: str = "xarray"
+) -> xr.Dataset:
+    open_with_allowed_values = ("xarray", "pandas")
+    if open_with not in ("xarray", "pandas"):
+        raise ValueError(
+            f"{open_with} is not a valid value, 'open_with' can take on "
+            f"one of the following values {open_with_allowed_values}"
+        )
+
+    remote = cads_toolbox.catalogue.retrieve(collection_id, request)
+    if open_with == "xarray":
+        ds = remote.to_xarray()
+    elif open_with == "pandas":
+        ds = remote.to_pandas()
+    if f is not None:
+        ds = f(ds)
+    return ds  # type: ignore
+
+
+def download_and_transform(
+    collection_id: str,
+    requests: Union[List[Dict[str, Any]], Dict[str, Any]],
+    target: Optional[str] = None,
+    chunks: Dict[str, int] = {},
+    f: Optional[Callable[[xr.Dataset], xr.Dataset]] = None,
+    merge_kwargs: Dict[str, Any] = {},
+    open_with: str = "xarray"
+) -> xr.Dataset:
     """
     Download chunking along the selected parameters, apply the function f to each chunk and merge the results.
 
@@ -128,27 +140,34 @@ def chunked_download(
     ----------
     collection_id: str
         ID of the dataset.
-    request: dict
-        Parameters of the request.
+    requests: list of dict or dict
+        Parameters of the requests
     chunks: dict
         dictionary {parameter_name: chunk_size}
     f: callable
         function to apply to each single chunk
     target: str
         output file path
+    open_with: str
+        open_with indicates the data structure on which the data is loaded when opening:
+        'xarray', that is a xarray.Dataset, or 'pandas', that is a pandas.Dataset.
+    merge_kwargs: dict
+        kwargs to be passed on to xr.merge function
+
     Returns
     -------
     xr.Dataset: Resulting dataset.
     """
-    requests = split_request(request, chunks)
+    request_list = []
+
+    for request in ensure_list(requests):
+        request_list.extend(split_request(request, chunks))
+
     datasets = []
-    for request_chunk in requests:
-        remote = cads_toolbox.catalogue.retrieve(collection_id, request_chunk)
-        ds = remote.to_xarray()
-        if f is not None:
-            ds = cacholote.cacheable(f)(ds)
+    for request_chunk in request_list:
+        ds = download_and_transform_chunk(collection_id, request=request_chunk, f=f, open_with=open_with)
         datasets.append(ds)
-    ds = xr.merge(datasets)
+    ds = xr.merge(datasets, **merge_kwargs)
     if target:
         ds.to_netcdf(target)
     return ds
