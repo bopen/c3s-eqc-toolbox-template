@@ -1,9 +1,10 @@
 import calendar
 import itertools
-from typing import Any, Callable, Dict, Iterable, List, Optional, Tuple, Union
+from typing import Any, Callable, Dict, Iterable, List, Optional, Tuple
 
 import cacholote
 import cads_toolbox
+import pandas as pd
 import xarray as xr
 
 
@@ -34,7 +35,7 @@ def check_non_empty(request: Dict[str, Any]) -> bool:
 def update_request(
     request: Dict[str, Any],
     parameters: Iterable[str],
-    values: Union[List[Any], Tuple[Any]],
+    values: List[Any] | Tuple[Any],
 ) -> Dict[str, Any]:
     for parameter, value in zip(parameters, values):
         request[parameter] = value
@@ -42,9 +43,9 @@ def update_request(
 
 
 def build_chunks(
-    values: Union[List[Any], Any],
+    values: List[Any] | Any,
     chunks_size: int,
-) -> Union[List[List[Any]], List[Any]]:
+) -> List[List[Any]] | List[Any]:
 
     values = ensure_list(values)
     values.copy()
@@ -105,7 +106,7 @@ def download_and_transform_chunk(
     collection_id: str,
     request: Dict[str, Any],
     f: Optional[Callable[[xr.Dataset], xr.Dataset]] = None,
-    open_with: str = "xarray"
+    open_with: str = "xarray",
 ) -> xr.Dataset:
     open_with_allowed_values = ("xarray", "pandas")
     if open_with not in ("xarray", "pandas"):
@@ -126,13 +127,14 @@ def download_and_transform_chunk(
 
 def download_and_transform(
     collection_id: str,
-    requests: Union[List[Dict[str, Any]], Dict[str, Any]],
-    target: Optional[str] = None,
+    requests: List[Dict[str, Any]] | Dict[str, Any],
     chunks: Dict[str, int] = {},
-    f: Optional[Callable[[xr.Dataset], xr.Dataset]] = None,
-    merge_kwargs: Dict[str, Any] = {},
-    open_with: str = "xarray"
-) -> xr.Dataset:
+    f: Optional[
+        Callable[[xr.Dataset], xr.Dataset] | Callable[[pd.DataFrame], pd.DataFrame]
+    ] = None,
+    open_with: str = "xarray",
+    **kwargs: Any,
+) -> xr.Dataset | pd.DataFrame:
     """
     Download chunking along the selected parameters, apply the function f to each chunk and merge the results.
 
@@ -146,17 +148,15 @@ def download_and_transform(
         dictionary {parameter_name: chunk_size}
     f: callable
         function to apply to each single chunk
-    target: str
-        output file path
     open_with: str
         open_with indicates the data structure on which the data is loaded when opening:
         'xarray', that is a xarray.Dataset, or 'pandas', that is a pandas.Dataset.
-    merge_kwargs: dict
-        kwargs to be passed on to xr.merge function
+    **kwargs:
+        kwargs to be passed on to xr.merge or pd.concat function
 
     Returns
     -------
-    xr.Dataset: Resulting dataset.
+    xr.Dataset or pd.DataFrame: Resulting dataset or dataframe.
     """
     request_list = []
 
@@ -165,9 +165,12 @@ def download_and_transform(
 
     datasets = []
     for request_chunk in request_list:
-        ds = download_and_transform_chunk(collection_id, request=request_chunk, f=f, open_with=open_with)
+        ds = download_and_transform_chunk(
+            collection_id, request=request_chunk, f=f, open_with=open_with
+        )
         datasets.append(ds)
-    ds = xr.merge(datasets, **merge_kwargs)
-    if target:
-        ds.to_netcdf(target)
+    if open_with == "xarray":
+        ds = xr.merge(datasets, **kwargs)
+    else:
+        ds = pd.concat(datasets, **kwargs)
     return ds
