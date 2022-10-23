@@ -120,6 +120,14 @@ def test_floor_to_month() -> None:
 def test_extract_leading_months() -> None:
 
     start = pd.Period("2020-06", freq="M")
+    stop = pd.Period("2023-06", freq="M")
+    res = download.extract_leading_months(start, stop)
+
+    assert len(res) == 1
+    assert res[0]["year"] == 2020
+    assert res[0]["month"] == [6, 7, 8, 9, 10, 11, 12]
+
+    start = pd.Period("2020-06", freq="M")
     stop = pd.Period("2023-12", freq="M")
     res = download.extract_leading_months(start, stop)
 
@@ -154,6 +162,14 @@ def test_extract_leading_months() -> None:
 def test_extract_trailing_months() -> None:
 
     start = pd.Period("2020-06", freq="M")
+    stop = pd.Period("2023-06", freq="M")
+    res = download.extract_trailing_months(start, stop)
+
+    assert len(res) == 1
+    assert res[0]["year"] == 2023
+    assert res[0]["month"] == [1, 2, 3, 4, 5, 6]
+
+    start = pd.Period("2020-01", freq="M")
     stop = pd.Period("2023-06", freq="M")
     res = download.extract_trailing_months(start, stop)
 
@@ -210,3 +226,24 @@ def test_extract_years() -> None:
     res = download.extract_years(start, stop)
 
     assert len(res) == 0
+
+
+def test_update_request() -> None:
+
+    requests = download.update_request_date({}, "2020-02", "2020-11")
+    assert len(requests) == 1
+
+    requests = download.update_request_date({}, "2020-01", "2020-12")
+    assert len(requests) == 1
+
+    requests = download.update_request_date({}, "2020-01", "2022-12")
+    assert len(requests) == 1
+
+    requests = download.update_request_date({}, "2020-02", "2022-12")
+    assert len(requests) == 2
+
+    requests = download.update_request_date({}, "2020-01", "2022-11")
+    assert len(requests) == 2
+
+    requests = download.update_request_date({}, "2020-02", "2022-11")
+    assert len(requests) == 3

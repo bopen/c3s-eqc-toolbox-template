@@ -1,6 +1,6 @@
 import calendar
 import itertools
-from typing import Any, Callable, Dict, List, Optional, Tuple
+from typing import Any, Callable, Dict, List, Optional
 
 import cacholote
 import cads_toolbox
@@ -44,7 +44,7 @@ def extract_leading_months(
 ) -> List[Dict[str, List[int] | int]]:
 
     time_ranges = []
-    if start.month > 1 and (start.year > stop.year or stop.month == 12):
+    if start.month > 1 and (start.year < stop.year or stop.month == 12):
         stop = min(stop, pd.Period(year=start.year, month=12, freq="M"))
         months = list(range(start.month, stop.month + 1))
         if len(months) > 0:
@@ -116,8 +116,8 @@ def compute_request_date(
 
 def update_request_date(
     request: Dict[str, Any],
-    start: Tuple[int, int] | pd.Period,
-    stop: Optional[Tuple[int, int]] = None,
+    start: str | pd.Period,
+    stop: Optional[str | pd.Period] = None,
     switch_month_day: Optional[int] = None,
 ) -> Dict[str, Any] | List[Dict[str, Any]]:
     """
@@ -128,11 +128,11 @@ def update_request_date(
     request: dict
         Parameters of the request
 
-    start: tuple[int, int] or pd.Period
-        Start year, start month
+    start: str or pd.Period
+        String {start_year}-{start_month} pd.Period with freq='M'
 
-    stop: tuple[int, int]
-        Optional stop year, stop month o
+    stop: str or pd.Period
+        Optional string {stop_year}-{stop_month} pd.Period with freq='M'
 
         If None the stop date is computed using the 'switch_month_day'
 
@@ -145,11 +145,11 @@ def update_request_date(
     -------
     xr.Dataset: request or list of requests updated
     """
-    start = pd.Period(f"{start[0]}-{start[1]}", "M")
+    start = pd.Period(start, "M")
     if stop is None:
         stop = compute_stop_date(switch_month_day=switch_month_day)
     else:
-        stop = pd.Period(f"{stop[0]}-{stop[1]}", "M")
+        stop = pd.Period(stop, "M")
 
     dates = compute_request_date(start, stop, switch_month_day=switch_month_day)
     if isinstance(dates, dict):
