@@ -41,3 +41,51 @@ def test_split_request() -> None:
 
     requests = download.split_request(request, {"month": 1, "year": 1})
     assert len(requests) == 4 * 12
+
+
+def test_build_chunks() -> None:
+
+    values = list(range(11))
+
+    res = download.build_chunks(values, 1)
+    assert res == values
+
+    res = download.build_chunks(values, 11)
+    assert res == [values]
+
+    res = download.build_chunks(values, 3)
+    assert res[-1] == [9, 10]
+
+
+def test_check_non_empty() -> None:
+    request = {
+        "year": "2021",
+        "month": ["01", "02", "03"],
+        "day": ["30", "31"],
+    }
+
+    assert download.check_non_empty(request)
+
+    request = {
+        "year": "2021",
+        "month": "03",
+        "day": "30",
+    }
+
+    assert download.check_non_empty(request)
+
+    request = {
+        "year": "2021",
+        "month": ["02", "04"],
+        "day": "31",
+    }
+
+    assert not download.check_non_empty(request)
+
+    request = {
+        "year": "2021",
+        "month": "02",
+        "day": ["30", "31"],
+    }
+
+    assert not download.check_non_empty(request)

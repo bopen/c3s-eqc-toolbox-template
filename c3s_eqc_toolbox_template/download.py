@@ -1,6 +1,6 @@
 import calendar
 import itertools
-from typing import Any, Callable, Dict, Iterable, List, Optional, Tuple
+from typing import Any, Callable, Dict, List, Optional
 
 import cacholote
 import cads_toolbox
@@ -30,16 +30,6 @@ def check_non_empty(request: Dict[str, Any]) -> bool:
             non_empty = True
             break
     return non_empty
-
-
-def update_request(
-    request: Dict[str, Any],
-    parameters: Iterable[str],
-    values: List[Any] | Tuple[Any],
-) -> Dict[str, Any]:
-    for parameter, value in zip(parameters, values):
-        request[parameter] = value
-    return request
 
 
 def build_chunks(
@@ -72,7 +62,7 @@ def split_request(
     request: dict
         Parameters of the request
     chunks: dict
-        dictionary {parameter_name: chunk_size}
+        Dictionary {parameter_name: chunk_size}
 
     Returns
     -------
@@ -92,7 +82,8 @@ def split_request(
         )
         for values in list_values:
             out_request = request.copy()
-            out_request = update_request(out_request, chunks, values)
+            for parameter, value in zip(chunks, values):
+                out_request[parameter] = value
 
             if not check_non_empty(out_request):
                 continue
@@ -147,10 +138,9 @@ def download_and_transform(
     chunks: dict
         dictionary {parameter_name: chunk_size}
     f: callable
-        function to apply to each single chunk
+        Function to apply to each single chunk
     open_with: str
-        open_with indicates the data structure on which the data is loaded when opening:
-        'xarray', that is a xarray.Dataset, or 'pandas', that is a pandas.Dataset.
+        is the backend used for opening the data file, valid values 'xarray', or 'pandas'
     **kwargs:
         kwargs to be passed on to xr.merge or pd.concat function
 
