@@ -23,6 +23,6 @@ except ImportError:  # pragma: no cover
     __version__ = "999"
 
 from . import statistics
-from .download import download_and_transform
+from .download import download_and_transform, update_request_date
 
-__all__ = ["__version__", "download_and_transform", "statistics"]
+__all__ = ["__version__", "download_and_transform", "update_request_date", "statistics"]
