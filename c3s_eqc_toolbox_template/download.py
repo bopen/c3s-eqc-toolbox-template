@@ -288,11 +288,11 @@ def download_and_transform(
     requests: list of dict or dict
         Parameters of the requests
     chunks: dict
-        dictionary {parameter_name: chunk_size}
+        Dictionary {parameter_name: chunk_size}
     f: callable
         Function to apply to each single chunk
     open_with: str
-        is the backend used for opening the data file, valid values 'xarray', or 'pandas'
+        Backend used for opening the data file, valid values: 'xarray', or 'pandas'
     **kwargs:
         kwargs to be passed on to xr.merge or pd.concat function
 

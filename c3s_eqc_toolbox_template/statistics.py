@@ -13,9 +13,9 @@ def spatial_mean(
     Parameters
     ----------
     ds: xr.Dataset or xr.DataArray
-        input data on which to apply the spatial mean
+        Input data on which to apply the spatial mean
     lon: str, optional
-        name of longitude coordinate
+        Name of longitude coordinate
     lat: str, optional
         Name of latitude coordinate
 
