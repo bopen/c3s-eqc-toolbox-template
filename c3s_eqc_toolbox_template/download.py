@@ -17,102 +17,94 @@ def compute_stop_date(switch_month_day: Optional[int] = None) -> pd.Timestamp:
         date = today - pd.DateOffset(months=1)
     else:
         date = today - pd.DateOffset(months=2)
-    return pd.Timestamp(date.year, date.month, date.days_in_month)
+    return pd.Period(f"{date.year}-{date.month}")
 
 
-def floor_to_month_end(date: pd.Timestamp) -> pd.Timestamp:
-    if not date.is_month_end:
-        date = date + pd.offsets.MonthEnd(0) - pd.DateOffset(months=1)
-    return date
+def ceil_to_month(period: pd.Period, month: int = 1) -> pd.Period:
+
+    if period.month > month:
+        period = pd.Period(year=period.year + 1, month=month, freq="M")
+    if period.month < month:
+        period = pd.Period(year=period.year, month=month, freq="M")
+    return period
 
 
-def floor_to_year_start(date: pd.Timestamp) -> pd.Timestamp:
-    if not date.is_year_start:
-        date = date + pd.offsets.YearBegin(0) - pd.DateOffset(years=1)
-    return date
+def floor_to_month(period: pd.Period, month: int = 1) -> pd.Period:
 
+    if period.month > month:
+        period = pd.Period(year=period.year, month=month, freq="M")
+    if period.month < month:
+        period = pd.Period(year=period.year - 1, month=month, freq="M")
 
-def floor_to_year_end(date: pd.Timestamp) -> pd.Timestamp:
-    if not date.is_year_end:
-        date = date + pd.offsets.YearEnd(0) - pd.DateOffset(years=1)
-    return date
+    return period
 
 
 def extract_leading_months(
-    start: pd.Timestamp, stop: pd.Timestamp
+    start: pd.Period, stop: pd.Period
 ) -> List[Dict[str, List[int] | int]]:
-    start = start + pd.offsets.MonthBegin(0)
-    stop = floor_to_month_end(stop)
-
-    if (start.year == stop.year) and (not stop.is_year_end):
-        return []
-    start = start + pd.offsets.MonthBegin(0)
-    stop = floor_to_month_end(stop)
 
     time_ranges = []
-    if not start.is_year_start:
-        stop = min(stop, start + pd.offsets.YearEnd(0))
+    if start.month > 1 and (start.year > stop.year or stop.month == 12):
+        stop = min(stop, pd.Period(year=start.year, month=12, freq="M"))
         months = list(range(start.month, stop.month + 1))
         if len(months) > 0:
-            time_ranges.append(
+            time_ranges = [
                 {
                     "year": start.year,
                     "month": months,
                     "day": list(range(1, 31 + 1)),
                 }
-            )
+            ]
+
     return time_ranges
 
 
 def extract_trailing_months(
-    start: pd.Timestamp, stop: pd.Timestamp
+    start: pd.Period, stop: pd.Period
 ) -> List[Dict[str, List[int] | int]]:
-    start = start + pd.offsets.MonthBegin(0)
-    stop = floor_to_month_end(stop)
 
     time_ranges = []
-    if not stop.is_year_end:
-        start = max(start, floor_to_year_start(stop))
+    if not stop.month == 12:
+        start = max(start, floor_to_month(stop, month=1))
         months = list(range(start.month, stop.month + 1))
         if len(months) > 0:
-            time_ranges.append(
+            time_ranges = [
                 {
                     "year": start.year,
                     "month": months,
                     "day": list(range(1, 31 + 1)),
                 }
-            )
+            ]
+
     return time_ranges
 
 
 def extract_years(
     start: pd.Timestamp, stop: pd.Timestamp
 ) -> List[Dict[str, List[int]]]:
-    start = start + pd.offsets.YearBegin(0)
-    stop = floor_to_year_end(stop)
+
+    start = ceil_to_month(start, month=1)
+    stop = floor_to_month(stop, month=12)
     years = list(range(start.year, stop.year + 1))
     time_ranges = []
     if len(years) > 0:
-        time_ranges.append(
+        time_ranges = [
             {
                 "year": years,
                 "month": list(range(1, 12 + 1)),
                 "day": list(range(1, 31 + 1)),
             }
-        )
+        ]
     return time_ranges
 
 
 def compute_request_date(
-    start: Tuple[int, int],
-    stop: Optional[Tuple[int, int]] = None,
+    start: pd.Period,
+    stop: Optional[pd.Period] = None,
     switch_month_day: Optional[int] = None,
 ) -> List[Dict[str, List[int] | int]]:
-    start = pd.Timestamp(*start, 1)
     if not stop:
         stop = compute_stop_date(switch_month_day)
-    else:
-        stop = pd.Timestamp(*stop, 1) + pd.offsets.MonthEnd(0)
 
     time_range = (
         extract_leading_months(start, stop)
@@ -124,7 +116,7 @@ def compute_request_date(
 
 def update_request_date(
     request: Dict[str, Any],
-    start: Tuple[int, int],
+    start: Tuple[int, int] | pd.Period,
     stop: Optional[Tuple[int, int]] = None,
     switch_month_day: Optional[int] = None,
 ) -> Dict[str, Any] | List[Dict[str, Any]]:
@@ -136,11 +128,13 @@ def update_request_date(
     request: dict
         Parameters of the request
 
-    start: tuple[int, int]
+    start: tuple[int, int] or pd.Period
         Start year, start month
 
     stop: tuple[int, int]
-        Optional stop year, stop month. If None the stop date is computed using the 'switch_month_day'
+        Optional stop year, stop month o
+
+        If None the stop date is computed using the 'switch_month_day'
 
     switch_month_day: int
         Used to compute the stop date in case stop is None. The stop date is computed as follows:
@@ -151,6 +145,12 @@ def update_request_date(
     -------
     xr.Dataset: request or list of requests updated
     """
+    start = pd.Period(f"{start[0]}-{start[1]}", "M")
+    if stop is None:
+        stop = compute_stop_date(switch_month_day=switch_month_day)
+    else:
+        stop = pd.Period(f"{stop[0]}-{stop[1]}", "M")
+
     dates = compute_request_date(start, stop, switch_month_day=switch_month_day)
     if isinstance(dates, dict):
         return {**request, **dates}
