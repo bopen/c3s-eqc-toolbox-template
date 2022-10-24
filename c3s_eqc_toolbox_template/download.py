@@ -134,7 +134,7 @@ def update_request_date(
     stop: str or pd.Period
         Optional string {stop_year}-{stop_month} pd.Period with freq='M'
 
-        If None the stop date is computed using the 'switch_month_day'
+        If None the stop date is computed using the `switch_month_day`
 
     switch_month_day: int
         Used to compute the stop date in case stop is None. The stop date is computed as follows:
@@ -248,9 +248,11 @@ def split_request(
 def download_and_transform_chunk(
     collection_id: str,
     request: Dict[str, Any],
-    f: Optional[Callable[[xr.Dataset], xr.Dataset]] = None,
+    f: Optional[
+        Callable[[xr.Dataset], xr.Dataset] | Callable[[pd.DataFrame], pd.DataFrame]
+    ] = None,
     open_with: str = "xarray",
-) -> xr.Dataset:
+) -> xr.Dataset | pd.DataFrame:
     open_with_allowed_values = ("xarray", "pandas")
     if open_with not in ("xarray", "pandas"):
         raise ValueError(
@@ -265,7 +267,7 @@ def download_and_transform_chunk(
         ds = remote.to_pandas()
     if f is not None:
         ds = f(ds)
-    return ds  # type: ignore
+    return ds
 
 
 def download_and_transform(
