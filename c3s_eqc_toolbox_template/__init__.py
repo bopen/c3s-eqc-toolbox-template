@@ -22,4 +22,7 @@ except ImportError:  # pragma: no cover
     # Local copy or not installed with setuptools
     __version__ = "999"
 
-__all__ = ["__version__"]
+from . import statistics
+from .download import download_and_transform, update_request_date
+
+__all__ = ["__version__", "download_and_transform", "update_request_date", "statistics"]
