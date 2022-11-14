@@ -16,12 +16,12 @@ dependencies:
 - cfgrib
 - cf-units
 - dask
-- diskcache
 - fsspec
 - geopandas
 - matplotlib
 - netCDF4
 - pandas
+- sqlalchemy
 - xarray
 - pip
 - pip:
