@@ -11,7 +11,7 @@ repos:
   - id: debug-statements
   - id: mixed-line-ending
 - repo: https://github.com/PyCQA/isort
-  rev: 5.10.1
+  rev: 5.11.2
   hooks:
   - id: isort
 - repo: https://github.com/psf/black
@@ -45,3 +45,20 @@ repos:
   - id: pydocstyle
     additional_dependencies: [toml]
     exclude: tests|docs
+- repo: https://github.com/nbQA-dev/nbQA
+  rev: 1.5.3
+  hooks:
+  - id: nbqa-isort
+  - id: nbqa-black
+  - id: nbqa-flake8
+  - id: nbqa
+    entry: nbqa mdformat
+    name: nbqa-mdformat
+    alias: nbqa-mdformat
+    args: [--nbqa-md]
+    additional_dependencies: [mdformat]
+- repo: https://github.com/kynan/nbstripout
+  rev: 0.6.1
+  hooks:
+  - id: nbstripout
+    exclude: ^tests/data/(databricks_notebook|notebook_for_testing)\.ipynb$
