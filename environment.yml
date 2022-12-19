@@ -21,14 +21,19 @@ dependencies:
 - matplotlib
 - netCDF4
 - pandas
+- plotly
+- pydantic
+- python-dotenv
+- pyyaml
+- rich
 - sqlalchemy
+- typer
+- toml
 - xarray
 - pip
 - pip:
-  - cads-toolbox
-  - cgul
+  - git+https://github.com/ecmwf-projects/cacholote.git
+  - git+https://github.com/ecmwf-projects/cads-toolbox.git
+  - git+https://github.com/bopen/c3s-eqc-automatic-quality-control.git
   - emohawk
-  - cacholote
-  - plotly
   - kaleido
-  - jupyter
