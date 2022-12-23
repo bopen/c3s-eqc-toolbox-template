@@ -21,6 +21,7 @@ dependencies:
 - matplotlib
 - netCDF4
 - pandas
+- pandas-stubs
 - plotly
 - pydantic
 - python-dotenv
@@ -32,8 +33,8 @@ dependencies:
 - xarray
 - pip
 - pip:
-  - git+https://github.com/ecmwf-projects/cacholote.git
+  - cacholote
   - git+https://github.com/ecmwf-projects/cads-toolbox.git
-  - git+https://github.com/bopen/c3s-eqc-automatic-quality-control.git
   - emohawk
   - kaleido
+  - git+https://github.com/bopen/c3s-eqc-automatic-quality-control.git
