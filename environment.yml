@@ -34,6 +34,7 @@ dependencies:
 - pip
 - pip:
   - cacholote
+  - cgul
   - git+https://github.com/ecmwf-projects/cads-toolbox.git
   - emohawk
   - kaleido
