@@ -41,10 +41,10 @@ repos:
     args: [--autofix]
     additional_dependencies: [toml-sort<0.22.0]
 - repo: https://github.com/PyCQA/pydocstyle.git
-  rev: 6.1.1
+  rev: 6.2.2
   hooks:
   - id: pydocstyle
-    additional_dependencies: [toml]
+    additional_dependencies: [tomli]
     exclude: tests|docs
 - repo: https://github.com/nbQA-dev/nbQA
   rev: 1.5.3
