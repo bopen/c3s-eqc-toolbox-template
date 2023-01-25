@@ -1,27 +1,25 @@
+# environment.yml: Mandatory dependencies only.
 channels:
 - conda-forge
 - nodefaults
+# EXAMPLE:
+# dependencies:
+# - package1
+# - package2
+# DO NOT EDIT ABOVE THIS LINE, ADD DEPENDENCIES BELOW AS SHOWN IN THE EXAMPLE
 dependencies:
-- make
-- mypy
-- myst-parser
-- pre-commit
-- pydata-sphinx-theme
-- pytest
-- pytest-cov
-- sphinx
-- sphinx-autoapi
-# DO NOT EDIT ABOVE THIS LINE, ADD DEPENDENCIES BELOW
 - cdsapi
 - cfgrib
 - cf-units
 - dask
 - fsspec
 - geopandas
+- ipykernel
 - matplotlib
+- nbformat
 - netCDF4
 - pandas
-- pandas-stubs
+- pip
 - plotly
 - pydantic
 - python-dotenv
@@ -31,11 +29,10 @@ dependencies:
 - typer
 - toml
 - xarray
-- pip
 - pip:
+  - git+https://github.com/bopen/c3s-eqc-automatic-quality-control.git
   - cacholote
+  - cads-toolbox
   - cgul
-  - git+https://github.com/ecmwf-projects/cads-toolbox.git
   - emohawk
   - kaleido
-  - git+https://github.com/bopen/c3s-eqc-automatic-quality-control.git

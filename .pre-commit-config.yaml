@@ -10,10 +10,6 @@ repos:
   - id: check-added-large-files
   - id: debug-statements
   - id: mixed-line-ending
-- repo: https://github.com/PyCQA/isort
-  rev: 5.11.4
-  hooks:
-  - id: isort
 - repo: https://github.com/psf/black
   rev: 22.12.0
   hooks:
@@ -47,11 +43,11 @@ repos:
     additional_dependencies: [tomli]
     exclude: tests|docs
 - repo: https://github.com/nbQA-dev/nbQA
-  rev: 1.5.3
+  rev: 1.6.1
   hooks:
-  - id: nbqa-isort
   - id: nbqa-black
-  - id: nbqa-flake8
+  - id: nbqa-ruff
+    args: [--fix]
   - id: nbqa
     entry: nbqa mdformat
     name: nbqa-mdformat

@@ -1,0 +1,33 @@
+diff a/.pre-commit-config.yaml b/.pre-commit-config.yaml	(rejected hunks)
+@@ -23,26 +19,19 @@ repos:
+   hooks:
+   - id: blackdoc
+     additional_dependencies: [black==22.3.0]
+-- repo: https://github.com/PyCQA/flake8
+-  rev: 6.0.0
++- repo: https://github.com/charliermarsh/ruff-pre-commit
++  rev: v0.0.230
+   hooks:
+-  - id: flake8
++  - id: ruff
++    args: [--fix]
+ - repo: https://github.com/executablebooks/mdformat
+   rev: 0.7.16
+   hooks:
+   - id: mdformat
+-    exclude: cruft-update-template.md
+ - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
+-  rev: v2.5.0
++  rev: v2.6.0
+   hooks:
+   - id: pretty-format-yaml
+     args: [--autofix, --preserve-quotes]
+   - id: pretty-format-toml
+     args: [--autofix]
+-    additional_dependencies: [toml-sort<0.22.0]
+-- repo: https://github.com/PyCQA/pydocstyle.git
+-  rev: 6.2.2
+-  hooks:
+-  - id: pydocstyle
+-    additional_dependencies: [tomli]
+-    exclude: tests|docs
