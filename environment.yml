@@ -8,15 +8,14 @@ channels:
 # - package2
 # DO NOT EDIT ABOVE THIS LINE, ADD DEPENDENCIES BELOW AS SHOWN IN THE EXAMPLE
 dependencies:
+- cartopy
 - cdsapi
 - cfgrib
 - cf-units
 - dask
 - fsspec
 - geopandas
-- ipykernel
 - matplotlib
-- nbformat
 - netCDF4
 - pandas
 - pip
@@ -29,6 +28,7 @@ dependencies:
 - typer
 - toml
 - xarray
+- xesmf
 - pip:
   - git+https://github.com/bopen/c3s-eqc-automatic-quality-control.git
   - cacholote
