@@ -4,7 +4,8 @@ import getpass
 import logging
 import pathlib
 import subprocess
-import urllib
+import urllib.parse
+from typing import Optional
 
 logging.basicConfig(level=logging.INFO)
 
@@ -17,7 +18,7 @@ if wd_path.parent != expected_parent or len(username.split("_")) != 2:
     raise ValueError(f"Working directory must be {expected_dir}")
 
 
-def get_jupyter_server_url(wd_path):
+def get_jupyter_server_url(wd_path: pathlib.Path) -> Optional[urllib.parse.ParseResult]:
     cmd = ["jupyter", "notebook", "list"]
     proc = subprocess.run(cmd, capture_output=True, check=True, text=True)
     for line in proc.stdout.splitlines()[1:]:
@@ -27,7 +28,7 @@ def get_jupyter_server_url(wd_path):
     return None
 
 
-def start_jupyter_server(wd_path):
+def start_jupyter_server(wd_path: pathlib.Path) -> urllib.parse.ParseResult:
     log = wd_path / "jupyter.log"
     cmd = f"jupyter notebook --no-browser > {log!s} 2>&1 &"
     subprocess.run(cmd, check=True, shell=True)
@@ -38,9 +39,7 @@ def start_jupyter_server(wd_path):
             return jupyter_url
 
 
-jupyter_url = get_jupyter_server_url(wd_path)
-if jupyter_url is None:
-    jupyter_url = start_jupyter_server(wd_path)
+jupyter_url = get_jupyter_server_url(wd_path) or start_jupyter_server(wd_path)
 
 msg = f"""Serving notebooks from local directory: {wd_path}
 Jupyter Notebook is running at:
