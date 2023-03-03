@@ -25,7 +25,6 @@ def get_jupyter_server_url(wd_path: pathlib.Path) -> Optional[urllib.parse.Parse
         jupyter_url, jupyter_dir = line.split(" :: ")
         if pathlib.Path(jupyter_dir) == wd_path:
             return urllib.parse.urlparse(jupyter_url)
-    return None
 
 
 def start_jupyter_server(wd_path: pathlib.Path) -> urllib.parse.ParseResult:
