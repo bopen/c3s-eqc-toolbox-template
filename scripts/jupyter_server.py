@@ -10,10 +10,9 @@ logging.basicConfig(level=logging.INFO)
 
 wd_path = pathlib.Path.cwd()
 username = wd_path.name
-log = wd_path / "jupyter.log"
 
 expected_parent = pathlib.Path(f"/data/{getpass.getuser()}")
-if wd_path.parent != expected_parent or len(wd_path.name.split("_")) != 2:
+if wd_path.parent != expected_parent or len(username.split("_")) != 2:
     expected_dir = expected_parent / "lastname_firstname"
     raise ValueError(f"Working directory must be {expected_dir}")
 
@@ -28,7 +27,8 @@ def get_jupyter_server_url(wd_path):
     return None
 
 
-def start_jupyter_server(log):
+def start_jupyter_server(wd_path):
+    log = wd_path / "jupyter.log"
     cmd = f"jupyter notebook --no-browser > {log!s} 2>&1 &"
     subprocess.run(cmd, check=True, shell=True)
     jupyter_url = None
@@ -40,7 +40,7 @@ def start_jupyter_server(log):
 
 jupyter_url = get_jupyter_server_url(wd_path)
 if jupyter_url is None:
-    jupyter_url = start_jupyter_server(log)
+    jupyter_url = start_jupyter_server(wd_path)
 
 msg = f"""Serving notebooks from local directory: {wd_path}
 Jupyter Notebook is running at:
