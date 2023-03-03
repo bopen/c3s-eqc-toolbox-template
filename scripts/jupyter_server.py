@@ -32,7 +32,6 @@ def start_jupyter_server(wd_path: pathlib.Path) -> urllib.parse.ParseResult:
     log = wd_path / "jupyter.log"
     cmd = f"jupyter notebook --no-browser > {log!s} 2>&1 &"
     subprocess.run(cmd, check=True, shell=True)
-    jupyter_url = None
     while True:
         jupyter_url = get_jupyter_server_url(wd_path)
         if jupyter_url:
