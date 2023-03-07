@@ -15,6 +15,7 @@ dependencies:
 - dask
 - fsspec
 - geopandas
+- jupyterlab
 - matplotlib
 - netCDF4
 - pandas
