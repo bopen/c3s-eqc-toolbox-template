@@ -1,13 +1,10 @@
-# environment.yml: Mandatory dependencies only.
+name: wp5
 channels:
 - conda-forge
 - nodefaults
-# EXAMPLE:
-# dependencies:
-# - package1
-# - package2
-# DO NOT EDIT ABOVE THIS LINE, ADD DEPENDENCIES BELOW AS SHOWN IN THE EXAMPLE
 dependencies:
+- python=3.10
+- jupyterlab
 - cartopy
 - cdsapi
 - cfgrib
