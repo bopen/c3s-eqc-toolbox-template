@@ -31,3 +31,7 @@ docs-build:
 	cd docs && rm -fr _api && make clean && make html
 
 # DO NOT EDIT ABOVE THIS LINE, ADD COMMANDS BELOW
+execute-notebooks:
+	for notebook in **/*.ipynb **/**/*.ipynb ; do \
+        jupyter execute $$notebook || exit ; \
+    done
