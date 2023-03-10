@@ -27,6 +27,7 @@ dependencies:
 - sqlalchemy
 - typer
 - toml
+- tqdm
 - xarray
 - xesmf
 - pip:
