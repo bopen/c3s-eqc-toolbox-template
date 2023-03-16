@@ -9,7 +9,6 @@ channels:
 # DO NOT EDIT ABOVE THIS LINE, ADD DEPENDENCIES BELOW AS SHOWN IN THE EXAMPLE
 dependencies:
 - cartopy
-- cdsapi
 - cfgrib
 - cf-units
 - dask
@@ -34,6 +33,7 @@ dependencies:
   - git+https://github.com/bopen/c3s-eqc-automatic-quality-control.git
   - cacholote
   - cads-toolbox
+  - cdsapi >= 0.6.1
   - cgul
   - emohawk
   - kaleido
