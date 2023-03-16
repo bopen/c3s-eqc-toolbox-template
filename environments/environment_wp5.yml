@@ -32,6 +32,7 @@ dependencies:
   - git+https://github.com/bopen/c3s-eqc-automatic-quality-control.git
   - cacholote
   - cads-toolbox
+  - cdsapi >= 0.6.1
   - cgul
   - emohawk
   - kaleido
