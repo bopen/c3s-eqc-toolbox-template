@@ -6,7 +6,7 @@ dependencies:
 - python=3.10
 - jupyterlab
 - cartopy
-- cdsapi
+- cdsapi >= 0.6.1
 - cfgrib
 - cf-units
 - dask
