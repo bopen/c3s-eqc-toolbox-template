@@ -29,7 +29,7 @@ dependencies:
 - toml
 - tqdm
 - xarray
-- xesmf
+- xesmf >= 0.7.0
 - pip:
   - git+https://github.com/bopen/c3s-eqc-automatic-quality-control.git
   - cacholote
