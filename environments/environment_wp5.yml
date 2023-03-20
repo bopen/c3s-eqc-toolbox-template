@@ -18,6 +18,7 @@ dependencies:
 - pip
 - plotly
 - pydantic
+- pymannkendall
 - python-dotenv
 - pyyaml
 - rich
