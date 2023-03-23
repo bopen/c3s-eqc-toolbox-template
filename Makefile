@@ -36,3 +36,8 @@ execute-notebooks:
 	for notebook in **/*.ipynb **/**/*.ipynb ; do \
         jupyter execute $$notebook || exit ; \
     done
+
+execute-wp-notebooks:
+	for notebook in **/wp*/*.ipynb ; do \
+		jupyter execute $$notebook || exit ; \
+	done
