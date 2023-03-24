@@ -7,7 +7,7 @@ body:
   attributes:
     label: Notebook description
     description: |
-      Thanks for submitting the notebook! Please briefly describe the notebook.
+      Please briefly describe the notebook.
   validations:
     required: true
 
