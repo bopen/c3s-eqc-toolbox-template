@@ -50,6 +50,7 @@ def main(
     year_stop: int = 2016,
     processes: int = 5,
     cdsapirc: str = "",
+    tag: str = "raw_data",
 ) -> None:
     if cdsapirc:
         os.environ["CDSAPI_RC"] = os.path.expanduser(cdsapirc)
@@ -62,7 +63,7 @@ def main(
 
     # Sanity check and tagging
     typer.echo("Running sanity check.")
-    with cacholote.config.set(tag="raw_data"):
+    with cacholote.config.set(tag=tag):
         request = retrieve(years)
     typer.echo(pprint.pformat(request))
 
