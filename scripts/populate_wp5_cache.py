@@ -8,7 +8,7 @@ import typer
 from c3s_eqc_automatic_quality_control import download  # type: ignore[import]
 
 
-def batched(iterable: Iterable[Any], n: int) -> Iterable[Any]:
+def batched(iterable: Iterable[Any], n: int) -> Iterable[tuple[Any, ...]]:
     """Batch data into tuples of length n. The last batch may be shorter."""
     # batched('ABCDEFG', 3) --> ABC DEF G
     if n < 1:
@@ -18,7 +18,7 @@ def batched(iterable: Iterable[Any], n: int) -> Iterable[Any]:
         yield batch
 
 
-def retrieve(years: list[str]) -> dict[str, Any]:
+def retrieve(years: tuple[str, ...]) -> dict[str, Any]:
     collection_id = "seasonal-monthly-single-levels"
     request = {
         "originating_centre": "cmcc",
@@ -53,7 +53,7 @@ def main(
     if cdsapirc:
         os.environ["CDSAPI_RC"] = os.path.expanduser(cdsapirc)
 
-    years = [str(year) for year in range(year_start, year_stop + 1)]
+    years = tuple(str(year) for year in range(year_start, year_stop + 1))
     batched_years = list(batched(years, processes))
     with multiprocessing.Pool(processes) as pool:
         print(pool.map(retrieve, batched_years))
