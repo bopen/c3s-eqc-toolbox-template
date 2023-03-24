@@ -1,12 +1,15 @@
 import itertools
 import multiprocessing
 import os
-import pprint
 from typing import Any, Iterable
 
 import cacholote
+import structlog
 import typer
+import xarray as xr
 from c3s_eqc_automatic_quality_control import download  # type: ignore[import]
+
+LOGGER = structlog.get_logger()
 
 
 def batched(iterable: Iterable[Any], n: int) -> Iterable[tuple[Any, ...]]:
@@ -19,28 +22,27 @@ def batched(iterable: Iterable[Any], n: int) -> Iterable[tuple[Any, ...]]:
         yield batch
 
 
-def retrieve(nominal_days: tuple[str, ...]) -> dict[str, Any]:
-    collection_id = "satellite-lai-fapar"
-    request = {
-        "nominal_day": nominal_days,
-        "variable": ["fapar", "lai"],
-        "satellite": "proba",
-        "sensor": "vgt",
-        "horizontal_resolution": "1km",
-        "product_version": "V2",
-        "year": "2014",
-        "month": [f"{month:02d}" for month in range(1, 12 + 1)],
-        "format": "zip",
-        "area": [90, -180, -90, 180],
+def retrieve(nominal_days: tuple[str, ...]) -> xr.Dataset:
+    kwargs = {
+        "collection_id": "satellite-lai-fapar",
+        "requests": {
+            "nominal_day": nominal_days,
+            "variable": ["fapar", "lai"],
+            "satellite": "proba",
+            "sensor": "vgt",
+            "horizontal_resolution": "1km",
+            "product_version": "V2",
+            "year": "2014",
+            "month": [f"{month:02d}" for month in range(1, 12 + 1)],
+            "format": "zip",
+            "area": [90, -180, -90, 180],
+        },
+        "chunks": {"nominal_day": 1},
+        "parallel": True,
     }
-    xr_open_mfdataset_kwargs = {"parallel": True}
-    download.download_and_transform(
-        collection_id,
-        request,
-        chunks={"nominal_day": 1},
-        **xr_open_mfdataset_kwargs,
-    )
-    return request
+    LOGGER.info("Retrieving", **kwargs)
+    ds: xr.Dataset = download.download_and_transform(**kwargs)
+    return ds
 
 
 def main(
@@ -55,13 +57,11 @@ def main(
     nominal_days = tuple(f"{day:02d}" for day in nominal_day)
     batched_nominal_days = list(batched(nominal_days, processes // len(nominal_days)))
     with multiprocessing.Pool(processes) as pool:
-        requests = pool.map(retrieve, batched_nominal_days)
-    typer.echo("\n".join(map(repr, requests)))
+        pool.map(retrieve, batched_nominal_days)
 
-    typer.echo("Running sanity check.")
     with cacholote.config.set(tag=tag):
-        request = retrieve(nominal_days)
-    typer.echo(pprint.pformat(request))
+        ds = retrieve(nominal_days)
+    LOGGER.info("Sanity check", dims=dict(ds.dims))
 
 
 if __name__ == "__main__":
