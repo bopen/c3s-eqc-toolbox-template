@@ -53,7 +53,7 @@ def main(
         os.environ["CDSAPI_RC"] = os.path.expanduser(cdsapirc)
 
     nominal_days = tuple(f"{day:02d}" for day in nominal_day)
-    batched_nominal_days = list(batched(nominal_days, processes))
+    batched_nominal_days = list(batched(nominal_days, processes // len(nominal_days)))
     with multiprocessing.Pool(processes) as pool:
         requests = pool.map(retrieve, batched_nominal_days)
     typer.echo("\n".join(map(repr, requests)))

@@ -56,7 +56,7 @@ def main(
         os.environ["CDSAPI_RC"] = os.path.expanduser(cdsapirc)
 
     years = tuple(str(year) for year in range(year_start, year_stop + 1))
-    batched_years = list(batched(years, processes))
+    batched_years = list(batched(years, processes // len(years)))
     with multiprocessing.Pool(processes) as pool:
         requests = pool.map(retrieve, batched_years)
     typer.echo("\n".join(map(repr, requests)))
