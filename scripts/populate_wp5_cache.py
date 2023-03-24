@@ -37,7 +37,7 @@ def retrieve(nominal_days: tuple[str, ...]) -> dict[str, Any]:
     download.download_and_transform(
         collection_id,
         request,
-        chunks={"nominal_days": 1},
+        chunks={"nominal_day": 1},
         **xr_open_mfdataset_kwargs,
     )
     return request
