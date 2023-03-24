@@ -1,15 +1,13 @@
-name: 🐛 Bug Report
-description: File a bug report
-labels: [bug]
+name: ❓ General Issue
+description: General issue, that's not a bug report.
+labels: [question]
 body:
 - type: textarea
-  id: what-happened
+  id: issue-description
   attributes:
-    label: What happened?
+    label: What is your issue?
     description: |
-      Please describe what you were trying to get done.
-      Tell us what happened, what went wrong.
-  validations:
+      Please describe your issue.
     required: true
 
 - type: textarea
@@ -17,7 +15,7 @@ body:
   attributes:
     label: Minimal Complete Verifiable Example
     description: |
-      Minimal, self-contained copy-pastable example that demonstrates the issue.
+      If useful, add a minimal, self-contained copy-pastable example that demonstrates the issue.
       This will be automatically formatted into code, so no need for markdown backticks.
     render: Python
 
@@ -26,7 +24,7 @@ body:
   attributes:
     label: Relevant log output
     description: |
-      Please copy and paste any relevant output.
+      If useful, please copy and paste any relevant output.
       This will be automatically formatted into code, so no need for markdown backticks.
     render: Python
 
@@ -42,7 +40,7 @@ body:
   attributes:
     label: Environment
     description: |
-      Paste the output of `conda list` between the `<details>` tags, leaving an empty line following the opening tag.
+      If useful, paste the output of `conda list` between the `<details>` tags, leaving an empty line following the opening tag.
     value: |
       <details>
 

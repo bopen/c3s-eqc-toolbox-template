@@ -1,0 +1,42 @@
+name: 📓 Notebook submission
+description: Submit a notebook for review
+labels: [notebook]
+body:
+- type: textarea
+  id: description
+  attributes:
+    label: Notebook description
+    description: |
+      Thanks for submitting the notebook! Please briefly describe the notebook.
+  validations:
+    required: true
+
+- type: textarea
+  id: link
+  attributes:
+    label: Notebook link or upload
+    description: |
+      Either create a [public gist](https://gist.github.com/) with the notebook and paste the link, or upload here a zipfile containing the notebook.
+    render: Python
+
+- type: textarea
+  id: extra
+  attributes:
+    label: Anything else we need to know?
+    description: |
+      Please describe any other information you want to share, such as your WP and issues you have encountered.
+
+- type: textarea
+  id: show-versions
+  attributes:
+    label: Environment
+    description: |
+      Paste the output of `conda list` between the `<details>` tags, leaving an empty line following the opening tag.
+    value: |
+      <details>
+
+
+
+      </details>
+  validations:
+    required: true
