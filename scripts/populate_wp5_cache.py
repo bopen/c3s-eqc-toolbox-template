@@ -56,11 +56,13 @@ def main(
     years = tuple(str(year) for year in range(year_start, year_stop + 1))
     batched_years = list(batched(years, processes))
     with multiprocessing.Pool(processes) as pool:
-        print(pool.map(retrieve, batched_years))
+        requests = pool.map(retrieve, batched_years)
+    typer.echo("\n".join(map(repr, requests)))
 
     # Sanity check and tagging
+    typer.echo("Running sanity check.")
     with cacholote.config.set(tag="raw_data"):
-        print(retrieve(years))
+        typer.echo(f"{retrieve(years)}!r")
 
 
 if __name__ == "__main__":
