@@ -19,32 +19,35 @@ def batched(iterable: Iterable[Any], n: int) -> Iterable[tuple[Any, ...]]:
         yield batch
 
 
-def retrieve(nominal_days: tuple[str, ...]) -> dict[str, Any]:
-    collection_id = "satellite-lai-fapar"
+def retrieve(years: tuple[str, ...]) -> dict[str, Any]:
+    collection_id = "seasonal-monthly-single-levels"
     request = {
-        "nominal_day": nominal_days,
-        "variable": ["fapar", "lai"],
-        "satellite": "proba",
-        "sensor": "vgt",
-        "horizontal_resolution": "1km",
-        "product_version": "V2",
-        "year": "2014",
+        "originating_centre": "cmcc",
+        "system": "35",
+        "variable": "2m_temperature",
+        "product_type": "monthly_mean",
+        "year": years,
         "month": [f"{month:02d}" for month in range(1, 12 + 1)],
-        "format": "zip",
-        "area": [90, -180, -90, 180],
+        "leadtime_month": ["1"],
+        "format": "grib",
     }
-    xr_open_mfdataset_kwargs = {"parallel": True}
+    xr_open_mfdataset_kwargs = {
+        "concat_dim": "forecast_reference_time",
+        "combine": "nested",
+        "parallel": True,
+    }
     download.download_and_transform(
         collection_id,
         request,
-        chunks={"nominal_days": 1},
+        chunks={"year": 1, "leadtime_month": 1},
         **xr_open_mfdataset_kwargs,
     )
     return request
 
 
 def main(
-    nominal_day: list[int] = [3, 13, 21, 23, 24],
+    year_start: int = 1993,
+    year_stop: int = 2016,
     processes: int = 5,
     cdsapirc: str = "",
     tag: str = "raw_data",
@@ -52,15 +55,15 @@ def main(
     if cdsapirc:
         os.environ["CDSAPI_RC"] = os.path.expanduser(cdsapirc)
 
-    nominal_days = tuple(f"{day:02d}" for day in nominal_day)
-    batched_nominal_days = list(batched(nominal_days, processes))
+    years = tuple(str(year) for year in range(year_start, year_stop + 1))
+    batched_years = list(batched(years, processes))
     with multiprocessing.Pool(processes) as pool:
-        requests = pool.map(retrieve, batched_nominal_days)
+        requests = pool.map(retrieve, batched_years)
     typer.echo("\n".join(map(repr, requests)))
 
     typer.echo("Running sanity check.")
     with cacholote.config.set(tag=tag):
-        request = retrieve(nominal_days)
+        request = retrieve(years)
     typer.echo(pprint.pformat(request))
 
 
