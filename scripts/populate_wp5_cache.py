@@ -1,6 +1,7 @@
 import itertools
 import multiprocessing
 import os
+import pprint
 from typing import Any, Iterable
 
 import cacholote
@@ -62,7 +63,8 @@ def main(
     # Sanity check and tagging
     typer.echo("Running sanity check.")
     with cacholote.config.set(tag="raw_data"):
-        typer.echo(f"{retrieve(years)}!r")
+        request = retrieve(years)
+    typer.echo(pprint.pformat(request))
 
 
 if __name__ == "__main__":
