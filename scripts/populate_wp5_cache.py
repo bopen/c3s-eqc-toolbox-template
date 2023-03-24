@@ -61,7 +61,6 @@ def main(
         requests = pool.map(retrieve, batched_years)
     typer.echo("\n".join(map(repr, requests)))
 
-    # Sanity check and tagging
     typer.echo("Running sanity check.")
     with cacholote.config.set(tag=tag):
         request = retrieve(years)
