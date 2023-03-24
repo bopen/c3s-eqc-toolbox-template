@@ -17,7 +17,6 @@ body:
     label: Notebook link or upload
     description: |
       Either create a [public gist](https://gist.github.com/) with the notebook and paste the link, or upload here a zipfile containing the notebook.
-    render: Python
 
 - type: textarea
   id: extra
