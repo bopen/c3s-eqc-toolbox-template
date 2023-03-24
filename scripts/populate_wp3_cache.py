@@ -32,8 +32,7 @@ def retrieve(years: tuple[str, ...]) -> dict[str, Any]:
         "format": "grib",
     }
     xr_open_mfdataset_kwargs = {
-        "concat_dim": "forecast_reference_time",
-        "combine": "nested",
+        "backend_kwargs": {"time_dims": ("forecastMonth", "time")},
         "parallel": True,
     }
     download.download_and_transform(
