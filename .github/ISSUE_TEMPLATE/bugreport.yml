@@ -1,0 +1,51 @@
+name: 🐛 Bug Report
+description: File a bug report to help us improve
+labels: [bug]
+body:
+- type: textarea
+  id: what-happened
+  attributes:
+    label: What happened?
+    description: |
+      Thanks for reporting a bug! Please describe what you were trying to get done.
+      Tell us what happened, what went wrong.
+  validations:
+    required: true
+
+- type: textarea
+  id: sample-code
+  attributes:
+    label: Minimal Complete Verifiable Example
+    description: |
+      Minimal, self-contained copy-pastable example that demonstrates the issue.
+      This will be automatically formatted into code, so no need for markdown backticks.
+    render: Python
+
+- type: textarea
+  id: log-output
+  attributes:
+    label: Relevant log output
+    description: Please copy and paste any relevant output. This will be automatically formatted into code, so no need for markdown backticks.
+    render: Python
+
+- type: textarea
+  id: extra
+  attributes:
+    label: Anything else we need to know?
+    description: |
+      Please describe any other information you want to share, such as your WP if you are running on the VM.
+
+- type: textarea
+  id: show-versions
+  attributes:
+    label: Environment
+    description: |
+      Paste the output of `conda list` between the `<details>` tags, leaving an empty line following the opening tag.
+    value: |
+      <details>
+
+
+
+      </details>
+  validations:
+    required: true
