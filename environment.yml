@@ -16,7 +16,7 @@ dependencies:
 - fsspec
 - geopandas
 # https://github.com/pydata/xarray/issues/7549
-- libnetcdf < 4.9 
+- libnetcdf < 4.9
 - matplotlib
 - netCDF4
 - pandas
