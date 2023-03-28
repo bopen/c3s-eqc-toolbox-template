@@ -22,7 +22,7 @@ def batched(iterable: Iterable[Any], n: int) -> Iterable[tuple[Any, ...]]:
         yield batch
 
 
-def retrieve(nominal_days: tuple[str, ...]) -> list[xr.Dataset]:
+def retrieve(nominal_days: tuple[str, ...]) -> xr.Dataset:
     kwargs: dict[str, Any] = {
         "collection_id": "satellite-lai-fapar",
         "requests": {
@@ -34,7 +34,7 @@ def retrieve(nominal_days: tuple[str, ...]) -> list[xr.Dataset]:
             "month": [f"{month:02d}" for month in range(1, 12 + 1)],
             "nominal_day": nominal_days,
             "format": "zip",
-            "area": [72, -13, 40, 35],
+            "variable": ["fapar", "lai"],
         },
         "transform_func": utils.regionalise,
         "transform_func_kwargs": {
@@ -42,14 +42,12 @@ def retrieve(nominal_days: tuple[str, ...]) -> list[xr.Dataset]:
             "lat_slice": slice(72, 40),
         },
         "chunks": {"year": 1, "nominal_day": 1, "variable": 1},
+        "combine": "nested",
+        "concat_dim": "time",
     }
-    datasets = []
-    for variable in ["fapar", "lai"]:
-        kwargs["requests"]["variable"] = [variable]
-        LOGGER.info("Retrieving", **kwargs)
-        ds: xr.Dataset = download.download_and_transform(**kwargs)
-        datasets.append(ds)
-    return datasets
+    LOGGER.info("Retrieving", **kwargs)
+    ds: xr.Dataset = download.download_and_transform(**kwargs)
+    return ds
 
 
 def main(
@@ -67,8 +65,8 @@ def main(
         pool.map(retrieve, batched_nominal_days)
 
     with cacholote.config.set(tag=tag):
-        datasets = retrieve(nominal_days)
-    LOGGER.info("Sanity check", dims=[dict(ds.dims) for ds in datasets])
+        ds = retrieve(nominal_days)
+    LOGGER.info("Sanity check", dims=dict(ds.dims))
 
 
 if __name__ == "__main__":
