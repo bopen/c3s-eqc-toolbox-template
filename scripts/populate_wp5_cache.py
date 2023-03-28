@@ -7,7 +7,7 @@ import cacholote
 import structlog
 import typer
 import xarray as xr
-from c3s_eqc_automatic_quality_control import download  # type: ignore[import]
+from c3s_eqc_automatic_quality_control import download, utils  # type: ignore[import]
 
 LOGGER = structlog.get_logger()
 
@@ -36,8 +36,12 @@ def retrieve(nominal_days: tuple[str, ...]) -> list[xr.Dataset]:
             "format": "zip",
             "area": [72, -13, 40, 35],
         },
+        "transform_func": utils.regionalise,
+        "trannsform_func_kwargs": {
+            "lon_slice": slice(-13, 35),
+            "lat_slice": slice(72, 40),
+        },
         "chunks": {"year": 1, "nominal_day": 1, "variable": 1},
-        "parallel": True,
     }
     datasets = []
     for variable in ["fapar", "lai"]:
