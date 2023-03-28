@@ -37,7 +37,7 @@ def retrieve(nominal_days: tuple[str, ...]) -> list[xr.Dataset]:
             "area": [72, -13, 40, 35],
         },
         "transform_func": utils.regionalise,
-        "trannsform_func_kwargs": {
+        "transform_func_kwargs": {
             "lon_slice": slice(-13, 35),
             "lat_slice": slice(72, 40),
         },
