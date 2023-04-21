@@ -15,8 +15,7 @@ dependencies:
 - dask
 - fsspec
 - geopandas
-# https://github.com/pydata/xarray/issues/7549
-- libnetcdf < 4.9
+- libnetcdf
 - matplotlib
 - netCDF4
 - pandas
