@@ -12,7 +12,7 @@ dependencies:
 - dask
 - fsspec
 - geopandas
-- libnetcdf
+- libnetcdf != 4.9.1
 - matplotlib
 - netCDF4
 - pandas
