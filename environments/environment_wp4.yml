@@ -3,7 +3,7 @@ channels:
 - nodefaults
 dependencies:
 - jupyterlab
-- xarrayMannKendall
 - pip
+- xarrayMannKendall
 - pip:
   - skillmetrics
