@@ -38,9 +38,9 @@ dependencies:
 - xarray
 - xesmf >= 0.7.0
 - pip:
+  - git+https://github.com/bopen/c3s-eqc-automatic-quality-control.git
   - cacholote
   - cads-toolbox
   - cgul
   - emohawk
   - kaleido
-  - git+https://github.com/bopen/c3s-eqc-automatic-quality-control.git
