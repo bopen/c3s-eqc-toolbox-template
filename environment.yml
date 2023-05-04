@@ -8,33 +8,38 @@ channels:
 # - package2
 # DO NOT EDIT ABOVE THIS LINE, ADD DEPENDENCIES BELOW AS SHOWN IN THE EXAMPLE
 dependencies:
+- python=3.10
 - cartopy
 - cdsapi
 - cfgrib
 - cf-units
 - dask
 - fsspec
-- geopandas
+- joblib
+- jupyterlab
 - libnetcdf != 4.9.1
 - matplotlib
 - netCDF4
-- pandas
+- numpy
 - pip
 - plotly
 - pydantic
 - python-dotenv
 - pyyaml
+- pyproj
 - rich
 - sqlalchemy
+- structlog
 - typer
 - toml
 - tqdm
+- typing_extensions
 - xarray
 - xesmf >= 0.7.0
 - pip:
-  - git+https://github.com/bopen/c3s-eqc-automatic-quality-control.git
   - cacholote
   - cads-toolbox
   - cgul
   - emohawk
   - kaleido
+  - git+https://github.com/bopen/c3s-eqc-automatic-quality-control.git
