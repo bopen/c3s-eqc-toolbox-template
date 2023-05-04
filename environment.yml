@@ -13,6 +13,7 @@ dependencies:
 - cdsapi
 - cfgrib
 - cf-units
+- cf_xarray
 - dask
 - fsspec
 - geopandas
