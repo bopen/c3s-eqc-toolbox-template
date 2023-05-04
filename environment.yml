@@ -15,6 +15,7 @@ dependencies:
 - cf-units
 - dask
 - fsspec
+- geopandas
 - joblib
 - jupyterlab
 - libnetcdf != 4.9.1
