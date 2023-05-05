@@ -25,7 +25,7 @@ docker-run:
 	docker run --rm -ti -v $(PWD):/srv $(PROJECT)
 
 template-update:
-	pre-commit autoupdate --repo https://github.com/nbQA-dev/nbQA --repo https://github.com/kynan/nbstripout
+	pre-commit autoupdate --repo https://github.com/nbQA-dev/nbQA --repo https://github.com/kynan/nbstripout --repo https://github.com/koalaman/shellcheck-precommit
 	pre-commit run --all-files cruft -c .pre-commit-config-cruft.yaml
 
 docs-build:
