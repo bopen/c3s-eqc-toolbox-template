@@ -6,11 +6,6 @@ if [ $# -lt 1 ]; then
 fi
 
 create_environment (){
-    if [ $# -ne 1 ]; then
-        echo "please specify the wp (i.e., wp3, wp4, or wp5)"
-        exit 1
-    fi
-    echo "$1"
     URL1="https://raw.githubusercontent.com/bopen/c3s-eqc-toolbox-template/main/environment.yml"
     URL2="https://raw.githubusercontent.com/bopen/c3s-eqc-toolbox-template/main/environments/environment_$1.yml"
     DATE=$(date --iso-8601=seconds)
