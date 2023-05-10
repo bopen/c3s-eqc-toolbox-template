@@ -2,6 +2,7 @@ channels:
 - conda-forge
 - nodefaults
 dependencies:
+- flox
 - iris
 - pymannkendall
 - rioxarray
