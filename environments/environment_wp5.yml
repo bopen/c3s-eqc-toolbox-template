@@ -2,8 +2,10 @@ channels:
 - conda-forge
 - nodefaults
 dependencies:
+- aiohttp
 - flox
 - iris
 - pymannkendall
+- requests
 - rioxarray
 - xarrayMannKendall
