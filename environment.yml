@@ -22,6 +22,7 @@ dependencies:
 - libnetcdf != 4.9.1
 - matplotlib
 - netCDF4
+- notebook
 - numpy
 - pip
 - plotly
