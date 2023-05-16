@@ -4,6 +4,7 @@ channels:
 dependencies:
 - jupyterlab
 - pip
+- scipy
 - xarrayMannKendall
 - pip:
   - skillmetrics
