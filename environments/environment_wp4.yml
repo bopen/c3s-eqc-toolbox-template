@@ -2,7 +2,6 @@ channels:
 - conda-forge
 - nodefaults
 dependencies:
-- jupyterlab
 - pip
 - scipy
 - xarrayMannKendall
