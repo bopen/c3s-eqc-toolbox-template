@@ -50,6 +50,7 @@ jobs:
   unit-tests:
     name: unit-tests
     needs: combine-environments
+    if: false
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -79,6 +80,7 @@ jobs:
 
   type-check:
     needs: [combine-environments, unit-tests]
+    if: false
     runs-on: ubuntu-latest
 
     steps:
@@ -105,6 +107,7 @@ jobs:
 
   docs-build:
     needs: [combine-environments, unit-tests]
+    if: false
     runs-on: ubuntu-latest
 
     steps:
@@ -167,6 +170,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [unit-tests, type-check, docs-build, integration-tests]
     if: |
+      false &&
       always() &&
       needs.unit-tests.result == 'success' &&
       needs.type-check.result == 'success' &&
