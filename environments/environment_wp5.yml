@@ -6,6 +6,7 @@ dependencies:
 - flox
 - iris
 - pymannkendall
+- regionmask
 - requests
 - rioxarray
 - xarrayMannKendall
