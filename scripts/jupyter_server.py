@@ -19,10 +19,10 @@ if wd_path.parent != expected_parent or len(username.split("_")) != 2:
 
 
 def get_jupyter_server_url(wd_path: pathlib.Path) -> Optional[urllib.parse.ParseResult]:
-    cmd = ["jupyter", "notebook", "list"]
+    cmd = ["jupyter", "lab", "list"]
     proc = subprocess.run(cmd, capture_output=True, check=True, text=True)
     for line in proc.stdout.splitlines()[1:]:
-        jupyter_url, jupyter_dir = line.split(" :: ")
+        jupyter_url, jupyter_dir = [segment.strip() for segment in line.split("::")]
         if pathlib.Path(jupyter_dir) == wd_path:
             return urllib.parse.urlparse(jupyter_url)
     return None
@@ -30,7 +30,7 @@ def get_jupyter_server_url(wd_path: pathlib.Path) -> Optional[urllib.parse.Parse
 
 def start_jupyter_server(wd_path: pathlib.Path) -> urllib.parse.ParseResult:
     log = wd_path / "jupyter.log"
-    cmd = f"jupyter notebook --no-browser > {log!s} 2>&1 &"
+    cmd = f"jupyter lab --no-browser > {log!s} 2>&1 &"
     subprocess.run(cmd, check=True, shell=True)
     while True:
         jupyter_url = get_jupyter_server_url(wd_path)
@@ -51,6 +51,6 @@ To access the notebooks:
             http://localhost:5678/?{jupyter_url.query}
 
 To stop the server use this command:
-    jupyter notebook stop {jupyter_url.netloc.split(":")[-1]}
+    jupyter lab stop {jupyter_url.netloc.split(":")[-1]}
 """
 logging.info(msg)
