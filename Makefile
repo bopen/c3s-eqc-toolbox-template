@@ -2,6 +2,7 @@ PROJECT := c3s_eqc_toolbox_template
 CONDA := conda
 CONDAFLAGS :=
 COV_REPORT := html
+WP :=
 
 default: qa type-check
 
@@ -17,6 +18,7 @@ type-check:
 conda-env-update:
 	$(CONDA) env update $(CONDAFLAGS) -f ci/environment-ci.yml
 	$(CONDA) env update $(CONDAFLAGS) -f environment.yml
+	$(CONDA) env update $(CONDAFLAGS) -f environments/environment_wp$(WP).yml
 
 docker-build:
 	docker build -t $(PROJECT) .

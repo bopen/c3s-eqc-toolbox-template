@@ -20,7 +20,7 @@ conda activate DEVELOP
 
 Before pushing to GitHub, run the following commands:
 
-1. Update conda environment: `make conda-env-update`
+1. Update conda environment choosing your wp (e.g., 5): `make conda-env-update WP=5`
 1. Install this package: `pip install -e .`
 1. Sync with the latest [template](https://github.com/ecmwf-projects/cookiecutter-conda-package) (optional): `make template-update`
 1. Run quality assurance checks: `make qa`
