@@ -1,5 +1,5 @@
-name: 📓 Notebook Submission
-description: Submit a notebook for review
+name: 📓 Notebook
+description: B-Open will provide technical feedback
 labels: [notebook]
 body:
 - type: textarea
