@@ -4,7 +4,6 @@ channels:
 dependencies:
 - aiohttp
 - flox
-- iris
 - pymannkendall
 - rechunker
 - regionmask
