@@ -38,6 +38,7 @@ dependencies:
 - typing_extensions
 - xarray
 - xesmf >= 0.7.0
+- zarr
 - pip:
   - git+https://github.com/bopen/c3s-eqc-automatic-quality-control.git
   - cacholote
