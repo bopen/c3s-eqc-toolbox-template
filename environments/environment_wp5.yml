@@ -4,8 +4,10 @@ channels:
 dependencies:
 - aiohttp
 - flox
-- pymannkendall
+- pip
 - regionmask
 - requests
 - rioxarray
 - xarrayMannKendall
+- pip:
+  - pymannkendall
