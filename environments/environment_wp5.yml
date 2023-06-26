@@ -5,7 +5,6 @@ dependencies:
 - aiohttp
 - flox
 - pymannkendall
-- rechunker
 - regionmask
 - requests
 - rioxarray
