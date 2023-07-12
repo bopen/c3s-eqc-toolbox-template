@@ -8,6 +8,7 @@ dependencies:
 - regionmask
 - requests
 - rioxarray
+- statsmodels
 - xarrayMannKendall
 - pip:
   - pymannkendall
