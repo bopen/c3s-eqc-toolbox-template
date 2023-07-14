@@ -51,8 +51,11 @@ select = [
   # isort
   "I",
   # pydocstyle
-  "D"
+  "D",
+  # pyupgrade
+  "UP"
 ]
+target-version = "py310"
 
 [tool.setuptools]
 packages = ["c3s_eqc_toolbox_template"]
