@@ -23,6 +23,7 @@ dependencies:
 - matplotlib
 - netCDF4
 - numpy
+- papermill
 - pip
 - plotly
 - pydantic == 1.*
