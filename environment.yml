@@ -21,6 +21,7 @@ dependencies:
 - jupyterlab
 - libnetcdf != 4.9.1
 - matplotlib
+- nbconvert
 - netCDF4
 - numpy
 - papermill
