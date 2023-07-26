@@ -16,9 +16,9 @@ type-check:
 	python -m mypy scripts
 
 conda-env-update:
-	$(CONDA) env update $(CONDAFLAGS) -f ci/environment-ci.yml
-	$(CONDA) env update $(CONDAFLAGS) -f environment.yml
-	$(CONDA) env update $(CONDAFLAGS) -f environments/environment_wp$(WP).yml
+	$(CONDA) install -y -c conda-forge conda-merge
+	$(CONDA) run conda-merge environment.yml ci/environment-ci.yml environments/environment_wp$(WP).yml > ci/combined-environment-ci.yml
+	$(CONDA) env update $(CONDAFLAGS) -f ci/combined-environment-ci.yml
 
 docker-build:
 	docker build -t $(PROJECT) .
