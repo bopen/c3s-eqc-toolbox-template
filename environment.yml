@@ -14,12 +14,12 @@ dependencies:
 - cfgrib
 - cf-units
 - cf_xarray
-- dask < 2023.6.0
+- dask
 - fsspec
 - geopandas
 - joblib
 - jupyterlab
-- libnetcdf != 4.9.1
+- libnetcdf
 - matplotlib
 - nbconvert
 - netCDF4
