@@ -33,6 +33,7 @@ dependencies:
 - pyyaml
 - pyproj
 - rich
+- seaborn
 - sqlalchemy
 - structlog
 - typer
