@@ -9,13 +9,13 @@ channels:
 # DO NOT EDIT ABOVE THIS LINE, ADD DEPENDENCIES BELOW AS SHOWN IN THE EXAMPLE
 dependencies:
 - python=3.10
-- bokeh!=3.2
+- bokeh!=3.2.1
 - cartopy
 - cdsapi
 - cfgrib
 - cf-units
 - cf_xarray
-- dask
+- dask!=2023.8.1
 - fsspec
 - geopandas
 - joblib
