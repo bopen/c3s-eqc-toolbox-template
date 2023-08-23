@@ -9,7 +9,7 @@ channels:
 # DO NOT EDIT ABOVE THIS LINE, ADD DEPENDENCIES BELOW AS SHOWN IN THE EXAMPLE
 dependencies:
 - python=3.10
-- bokeh!=3.2.1
+- bokeh
 - cartopy
 - cdsapi
 - cfgrib
@@ -40,7 +40,7 @@ dependencies:
 - toml
 - tqdm
 - typing_extensions
-- xarray!=2023.8.0
+- xarray
 - xesmf >= 0.7.0
 - xskillscore
 - zarr
