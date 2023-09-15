@@ -23,6 +23,7 @@ dependencies:
 - libnetcdf
 - matplotlib
 - nbconvert
+- nc-time-axis
 - netCDF4
 - numpy
 - papermill
