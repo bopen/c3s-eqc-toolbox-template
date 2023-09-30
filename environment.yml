@@ -29,7 +29,8 @@ dependencies:
 - papermill
 - pip
 - plotly
-- pydantic == 1.*
+- pydantic
+- pydantic-settings
 - python-dotenv
 - pyyaml
 - pyproj
