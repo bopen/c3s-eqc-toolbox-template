@@ -4,7 +4,7 @@
 import pandas as pd
 from github import Github
 
-filename = input("Insert file name: ")
+filename = input("Insert CSV file name: ")
 token = input("Insert token: ")
 g = Github(login_or_token=token)
 repo = g.get_repo("bopen/c3s-eqc-toolbox-template")
