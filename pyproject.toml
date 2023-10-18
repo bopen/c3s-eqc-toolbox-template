@@ -30,7 +30,6 @@ ignore = [
   # pydocstyle: Missing Docstrings
   "D1"
 ]
-include = ["*.py", "*.pyi", "**/pyproject.toml", "*.ipynb"]
 # Black line length is 88, but black does not format comments.
 line-length = 110
 select = [
