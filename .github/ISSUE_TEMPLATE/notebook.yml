@@ -30,7 +30,7 @@ body:
   attributes:
     label: Environment
     description: |
-      Paste the output of `conda list` between the `<details>` tags, leaving an empty line following the opening tag.
+      Paste the output of `conda env export` between the `<details>` tags, leaving an empty line following the opening tag.
     value: |
       <details>
 
