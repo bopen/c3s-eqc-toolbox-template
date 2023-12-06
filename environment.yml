@@ -8,7 +8,7 @@ channels:
 # - package2
 # DO NOT EDIT ABOVE THIS LINE, ADD DEPENDENCIES BELOW AS SHOWN IN THE EXAMPLE
 dependencies:
-- python=3.10
+- python=3.11
 - bokeh
 - cartopy
 - cdsapi
@@ -43,7 +43,7 @@ dependencies:
 - tqdm
 - typing_extensions
 - xarray
-- xesmf >= 0.7.0
+- xesmf
 - xskillscore
 - zarr
 - pip:
