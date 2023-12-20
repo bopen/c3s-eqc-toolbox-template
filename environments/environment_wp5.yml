@@ -8,7 +8,6 @@ dependencies:
 - pwlf
 - regionmask
 - requests
-- rechunker
 - rioxarray
 - statsmodels
 - xarrayMannKendall
