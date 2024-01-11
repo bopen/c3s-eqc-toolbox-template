@@ -15,6 +15,7 @@ dependencies:
 - cfgrib
 - cf-units
 - cf_xarray
+- cmocean
 - dask
 - fsspec
 - geopandas
