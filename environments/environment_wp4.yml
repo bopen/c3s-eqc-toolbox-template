@@ -3,6 +3,7 @@ channels:
 - nodefaults
 dependencies:
 - pip
+- icclim
 - scipy
 - xarrayMannKendall
 - pip:
