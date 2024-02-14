@@ -20,6 +20,7 @@ dependencies:
 - fsspec
 - geopandas
 - joblib
+- jupyter-server-proxy
 - jupyterlab
 - libnetcdf
 - matplotlib
