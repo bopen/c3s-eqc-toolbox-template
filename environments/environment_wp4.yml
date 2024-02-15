@@ -2,9 +2,9 @@ channels:
 - conda-forge
 - nodefaults
 dependencies:
+- icclim
 - pip
 - scipy
 - xarrayMannKendall
-- xclim
 - pip:
   - skillmetrics
