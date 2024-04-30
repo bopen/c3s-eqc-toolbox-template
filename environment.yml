@@ -11,7 +11,7 @@ dependencies:
 - python=3.11
 - bokeh
 - cartopy
-- cdsapi
+- cdsapi >= 0.7.0
 - cfgrib
 - cf-units
 - cf_xarray
