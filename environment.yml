@@ -17,6 +17,7 @@ dependencies:
 - cf_xarray
 - cmocean
 - dask
+- earthkit-data >= 0.7.0
 - fsspec
 - geopandas
 - joblib
@@ -49,9 +50,7 @@ dependencies:
 - xskillscore
 - zarr
 - pip:
-  - git+https://github.com/bopen/c3s-eqc-automatic-quality-control.git
+  - git+https://github.com/bopen/c3s-eqc-automatic-quality-control.git@earthkit
   - cacholote
-  - cads-toolbox
   - cgul
-  - emohawk
   - kaleido
