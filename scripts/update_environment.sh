@@ -1,13 +1,15 @@
 #!/bin/bash
 
+BRANCH=main
+
 if [ $# -lt 1 ]; then
     echo "please specify the environments (i.e., 'wp3', 'wp4', and/or 'wp5')"
     exit 1
 fi
 
 create_environment ()(
-    URL1="https://raw.githubusercontent.com/bopen/c3s-eqc-toolbox-template/main/environment.yml"
-    URL2="https://raw.githubusercontent.com/bopen/c3s-eqc-toolbox-template/main/environments/environment_$1.yml"
+    URL1="https://raw.githubusercontent.com/bopen/c3s-eqc-toolbox-template/$BRANCH/environment.yml"
+    URL2="https://raw.githubusercontent.com/bopen/c3s-eqc-toolbox-template/$BRANCH/environments/environment_$1.yml"
     DATE=$(date --iso-8601=seconds)
     TMP1=$(mktemp --suffix=.yml)
     TMP2=$(mktemp --suffix=.yml)
