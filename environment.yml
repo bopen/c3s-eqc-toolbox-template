@@ -28,7 +28,7 @@ dependencies:
 - nbconvert
 - nc-time-axis
 - netCDF4
-- numpy
+- numpy < 2.0.0
 - papermill
 - pip
 - plotly
@@ -46,7 +46,7 @@ dependencies:
 - tqdm
 - typing_extensions
 - xarray
-- xesmf
+- xesmf != 0.8.5
 - xskillscore
 - zarr
 - pip:
