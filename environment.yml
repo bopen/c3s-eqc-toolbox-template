@@ -22,6 +22,7 @@ dependencies:
 - joblib
 - jupyter-server-proxy
 - jupyterlab
+- jupyterlab-myst
 - libnetcdf
 - matplotlib
 - nbconvert
