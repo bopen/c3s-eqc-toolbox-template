@@ -11,13 +11,13 @@ dependencies:
 - python=3.11
 - bokeh
 - cartopy
-- cdsapi >= 0.7.0
+- cdsapi
 - cfgrib
 - cf-units
 - cf_xarray
 - cmocean
 - dask
-- earthkit-data >= 0.7.0
+- earthkit-data
 - fsspec
 - geopandas
 - joblib
