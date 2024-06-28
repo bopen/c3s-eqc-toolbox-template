@@ -17,6 +17,7 @@ dependencies:
 - cf_xarray
 - cmocean
 - dask
+- eccodes < 2.35.0
 - fsspec
 - geopandas
 - joblib
