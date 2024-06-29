@@ -18,7 +18,7 @@ dependencies:
 - cmocean
 - dask
 - earthkit-data
-- eccodes < 2.35.0
+- eccodes <= 2.34.0
 - fsspec
 - geopandas
 - joblib
