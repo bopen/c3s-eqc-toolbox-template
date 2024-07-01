@@ -17,8 +17,8 @@ dependencies:
 - cf_xarray
 - cmocean
 - dask
-- earthkit-data >= 0.8.1
-- eccodes <= 2.34.0
+- earthkit-data
+- eccodes
 - fsspec
 - geopandas
 - joblib
