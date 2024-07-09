@@ -22,12 +22,14 @@ dependencies:
 - fsspec
 - geopandas
 - joblib
+- jupyter-book
 - jupyter-server-proxy
 - jupyterlab
 - jupyterlab-myst
 - libnetcdf
 - matplotlib
 - nbconvert
+- nbformat
 - nc-time-axis
 - netCDF4
 - numpy < 2.0.0
