@@ -55,6 +55,6 @@ dependencies:
 - zarr
 - pip:
   - git+https://github.com/bopen/c3s-eqc-automatic-quality-control.git@earthkit
-  - cacholote
+  - cacholote < 1.2.0
   - cgul
   - kaleido
