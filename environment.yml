@@ -54,7 +54,7 @@ dependencies:
 - zarr
 - pip:
   - git+https://github.com/bopen/c3s-eqc-automatic-quality-control.git
-  - cacholote
+  - cacholote < 1.2.0
   - cads-toolbox
   - cgul
   - emohawk
