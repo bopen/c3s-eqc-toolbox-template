@@ -11,13 +11,13 @@ dependencies:
 - python=3.11
 - bokeh
 - cartopy
-- cdsapi
+- cdsapi >= 0.7.1
 - cfgrib
 - cf-units
 - cf_xarray
 - cmocean
 - dask
-- earthkit-data
+- earthkit-data >= 0.9.4
 - eccodes
 - fsspec
 - geopandas
@@ -32,7 +32,7 @@ dependencies:
 - nbformat
 - nc-time-axis
 - netCDF4
-- numpy < 2.0.0
+- numpy
 - papermill
 - pip
 - plotly
@@ -50,11 +50,11 @@ dependencies:
 - tqdm
 - typing_extensions
 - xarray
-- xesmf
+- xesmf >= 0.8.7
 - xskillscore
 - zarr
 - pip:
-  - git+https://github.com/bopen/c3s-eqc-automatic-quality-control.git@earthkit
-  - cacholote != 1.2.0
+  - git+https://github.com/bopen/c3s-eqc-automatic-quality-control.git
+  - cacholote
   - cgul
   - kaleido
