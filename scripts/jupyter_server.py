@@ -46,7 +46,7 @@ Jupyter Notebook is running at:
 
 To access the notebooks:
     1. Go to your local machine and paste this command:
-            ssh -N -f -L localhost:5678:{jupyter_url.netloc} eqcuser@136.156.154.152
+            ssh -N -f -L localhost:5678:{jupyter_url.netloc} eqc@136.156.129.56
     2. Open a browser and paste this URL:
             http://localhost:5678/?{jupyter_url.query}
 
