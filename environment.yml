@@ -18,7 +18,7 @@ dependencies:
 - cmocean
 - dask
 - earthkit-data >= 0.9.4
-- eccodes
+- eccodes >= 2.37.0
 - fsspec
 - geopandas
 - joblib
@@ -54,6 +54,7 @@ dependencies:
 - xskillscore
 - zarr
 - pip:
+  - eccodes >= 2.37.0
   - git+https://github.com/bopen/c3s-eqc-automatic-quality-control.git
   - cacholote
   - cgul
