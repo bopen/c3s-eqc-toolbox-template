@@ -37,8 +37,10 @@ extensions = [
 autodoc_typehints = "none"
 
 # autoapi configuration
+autoapi_add_toctree_entry = False
 autoapi_dirs = ["../c3s_eqc_toolbox_template"]
 autoapi_ignore = ["*/version.py"]
+autoapi_member_order = "groupwise"
 autoapi_options = [
     "members",
     "inherited-members",
