@@ -6,6 +6,7 @@ CADS Toolbox template application.
 :caption: 'Contents:'
 :maxdepth: 2
 
+README.md
 API Reference <_api/c3s_eqc_toolbox_template/index>
 ```
 

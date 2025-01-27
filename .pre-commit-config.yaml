@@ -1,7 +1,7 @@
 exclude: 'notebooks/general_assembly_2023'
 repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.6.0
+  rev: v5.0.0
   hooks:
   - id: trailing-whitespace
   - id: end-of-file-fixer
@@ -18,7 +18,7 @@ repos:
   - id: blackdoc
     additional_dependencies: [black==23.11.0]
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.6.8
+  rev: v0.9.3
   hooks:
   - id: ruff
     args: [--fix, --show-fixes]
@@ -26,7 +26,7 @@ repos:
   - id: ruff-format
     types_or: [python, pyi, jupyter]
 - repo: https://github.com/executablebooks/mdformat
-  rev: 0.7.17
+  rev: 0.7.21
   hooks:
   - id: mdformat
 - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
@@ -37,7 +37,7 @@ repos:
   - id: pretty-format-toml
     args: [--autofix]
 - repo: https://github.com/gitleaks/gitleaks
-  rev: v8.19.3
+  rev: v8.23.2
   hooks:
   - id: gitleaks
 - repo: https://github.com/nbQA-dev/nbQA

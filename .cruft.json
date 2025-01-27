@@ -1,6 +1,6 @@
 {
   "template": "https://github.com/ecmwf-projects/cookiecutter-conda-package",
-  "commit": "e0b3ca46de9e2e6b8e7f2a2cdb1baa61c6cc0d9f",
+  "commit": "29f0b30933f98a88a145955e8414a7bdb29593a4",
   "checkout": null,
   "context": {
     "cookiecutter": {
