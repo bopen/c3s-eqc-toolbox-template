@@ -41,7 +41,7 @@ repos:
   hooks:
   - id: gitleaks
 - repo: https://github.com/nbQA-dev/nbQA
-  rev: 1.8.7
+  rev: 1.9.1
   hooks:
   - id: nbqa
     entry: nbqa mdformat
@@ -50,7 +50,7 @@ repos:
     args: [--nbqa-md]
     additional_dependencies: [mdformat]
 - repo: https://github.com/kynan/nbstripout
-  rev: 0.7.1
+  rev: 0.8.1
   hooks:
   - id: nbstripout
     args: [--drop-empty-cells]
