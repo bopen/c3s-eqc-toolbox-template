@@ -4,6 +4,7 @@ channels:
 dependencies:
 - aiohttp
 - flox
+- openpyxl
 - pip
 - pwlf
 - regionmask
