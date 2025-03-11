@@ -18,7 +18,7 @@ repos:
   - id: blackdoc
     additional_dependencies: [black==23.11.0]
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.9.3
+  rev: v0.9.10
   hooks:
   - id: ruff
     args: [--fix, --show-fixes]
@@ -26,7 +26,7 @@ repos:
   - id: ruff-format
     types_or: [python, pyi, jupyter]
 - repo: https://github.com/executablebooks/mdformat
-  rev: 0.7.21
+  rev: 0.7.22
   hooks:
   - id: mdformat
 - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
@@ -37,7 +37,7 @@ repos:
   - id: pretty-format-toml
     args: [--autofix]
 - repo: https://github.com/gitleaks/gitleaks
-  rev: v8.23.2
+  rev: v8.24.0
   hooks:
   - id: gitleaks
 - repo: https://github.com/nbQA-dev/nbQA

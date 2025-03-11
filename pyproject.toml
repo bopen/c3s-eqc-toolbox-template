@@ -60,6 +60,7 @@ convention = "numpy"
 packages = ["c3s_eqc_toolbox_template"]
 
 [tool.setuptools_scm]
+fallback_version = "999"
 write_to = "c3s_eqc_toolbox_template/version.py"
 write_to_template = '''
 # Do not change! Do not track in version control!
