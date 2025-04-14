@@ -36,6 +36,7 @@ dependencies:
 - papermill
 - pip
 - plotly
+- pooch
 - pydantic
 - pydantic-settings
 - python-dotenv
