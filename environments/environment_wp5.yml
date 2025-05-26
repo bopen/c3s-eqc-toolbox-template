@@ -14,3 +14,4 @@ dependencies:
 - xarrayMannKendall
 - pip:
   - pymannkendall
+  - pywoudc
