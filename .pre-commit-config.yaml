@@ -55,6 +55,6 @@ repos:
   - id: nbstripout
     args: [--drop-empty-cells]
 - repo: https://github.com/koalaman/shellcheck-precommit
-  rev: v0.10.0
+  rev: v0.11.0
   hooks:
   - id: shellcheck
