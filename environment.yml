@@ -55,7 +55,6 @@ dependencies:
 - xskillscore
 - zarr
 - pip:
-  - eccodes >= 2.37.0
   - git+https://github.com/bopen/c3s-eqc-automatic-quality-control.git
   - cacholote
   - cgul
