@@ -4,6 +4,8 @@ channels:
 dependencies:
 - aiohttp
 - flox
+- gsw
+- lenapy
 - openpyxl
 - pip
 - pwlf
