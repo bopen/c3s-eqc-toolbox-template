@@ -20,7 +20,7 @@ create_environment ()(
     mamba env create -n "$1" -f "$TMP_MERGED" --yes || exit
     # mamba env update -n "$1" -f "$TMP_MERGED" --prune || exit
     mkdir -p yml_files
-    conda env export -n "$1" --file yml_files/environment_"$1"_"$DATE".yml --no-build
+    conda env export -n "$1" --file yml_files/environment_"$1"_"$DATE".yml --no-build --format yml
     rm -f "$TMP1" "$TMP2" "$TMP_MERGED"
 )
 
