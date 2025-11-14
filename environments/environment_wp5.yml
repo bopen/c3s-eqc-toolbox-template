@@ -16,3 +16,4 @@ dependencies:
 - xarrayMannKendall
 - pip:
   - pymannkendall
+  - skillmetrics
