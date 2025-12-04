@@ -51,8 +51,8 @@ dependencies:
 - tqdm
 - typing_extensions
 - xarray
-- xesmf >= 0.8.7
 - xclim
+- xesmf >= 0.8.7
 - xskillscore
 - zarr
 - pip:
