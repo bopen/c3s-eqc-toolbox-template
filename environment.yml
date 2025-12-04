@@ -52,6 +52,7 @@ dependencies:
 - typing_extensions
 - xarray
 - xesmf >= 0.8.7
+- xclim
 - xskillscore
 - zarr
 - pip:
