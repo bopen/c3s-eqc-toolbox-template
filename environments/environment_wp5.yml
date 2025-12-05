@@ -15,5 +15,6 @@ dependencies:
 - statsmodels
 - xarrayMannKendall
 - pip:
+  - git+https://github.com/ecjoliver/marineHeatWaves.git
   - pymannkendall
   - skillmetrics
