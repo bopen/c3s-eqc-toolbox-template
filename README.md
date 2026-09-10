@@ -1,6 +1,7 @@
 # c3s-eqc-toolbox-template
 
-CADS Toolbox template application
+> [!WARNING]
+> This repository has been archived following the completion of contract `C3S2_520`.  
 
 ## Quick Start
 
